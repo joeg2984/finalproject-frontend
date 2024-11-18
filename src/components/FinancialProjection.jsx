@@ -1,4 +1,3 @@
-// frontend/src/components/FinancialProjectionChart.js
 import React from 'react';
 import {
   LineChart,
