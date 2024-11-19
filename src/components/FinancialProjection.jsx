@@ -11,11 +11,9 @@ import {
 } from 'recharts';
 
 const FinancialProjectionChart = ({ financialProjection }) => {
-  // Sample data structure; adjust based on actual data
   const data = [
     { month: 'Jan', revenue: financialProjection.revenue, expenses: financialProjection.operational_expenses },
     { month: 'Feb', revenue: financialProjection.revenue * 1.05, expenses: financialProjection.operational_expenses * 1.02 },
-    // Add more months as needed
   ];
 
   return (

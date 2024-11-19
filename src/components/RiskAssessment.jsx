@@ -12,8 +12,8 @@ const RiskAssessment = ({ risks }) => {
     return <div className="mb-6"><p>No risks identified.</p></div>;
   }
 
-  // Calculate risk categories
-  const riskCategories = {
+
+   const riskCategories = {
     high: risks.filter(r => r.risk_score >= 15).length,
     medium: risks.filter(r => r.risk_score >= 8 && r.risk_score < 15).length,
     low: risks.filter(r => r.risk_score < 8).length
@@ -41,7 +41,7 @@ const RiskAssessment = ({ risks }) => {
 
   return (
     <div className="space-y-8">
-      {/* Risk Distribution */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-6 bg-white rounded-xl shadow-lg">
           <h4 className="text-lg font-semibold mb-4">Risk Distribution</h4>
@@ -96,7 +96,7 @@ const RiskAssessment = ({ risks }) => {
         </div>
       </div>
 
-      {/* Risk List */}
+
       <div className="space-y-4">
         {risks.map((risk, index) => (
           <div

@@ -11,7 +11,6 @@ import {
 } from 'recharts';
 
 const FinancialProjectionChart = ({ financialProjection }) => {
-  // Validate the financialProjection prop
   if (
     !financialProjection ||
     !Array.isArray(financialProjection.monthly_revenue) ||
@@ -21,7 +20,6 @@ const FinancialProjectionChart = ({ financialProjection }) => {
     return <p>Incomplete financial projection data available.</p>;
   }
 
-  // Prepare data for the chart
   const data = financialProjection.monthly_revenue.map((rev, index) => ({
     month: `Month ${index + 1}`,
     Revenue: rev,

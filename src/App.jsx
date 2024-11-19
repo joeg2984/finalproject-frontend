@@ -1,8 +1,8 @@
-// frontend/src/App.jsx
 import React from 'react';
 import './App.css';
 import Evaluation from './components/Evaluation';
-import DarkModeToggle from './components/DarkModeToggle'; // Optional: Remove if not using Dark Mode
+import DarkModeToggle from './components/DarkModeToggle'; 
+
 
 const App = () => {
   return (

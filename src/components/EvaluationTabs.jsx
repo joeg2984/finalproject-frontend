@@ -16,10 +16,6 @@ import OpenAI from 'openai';
 import Recommendations from './Recommendations';
 
 
-/**
- * ProgressBar Component
- * Displays a labeled progress bar using DaisyUI's Progress component.
- */
 const ProgressBar = ({ label, value, max }) => {
   const percentage = Math.min((value / max) * 100, 100);
   const colorClass = percentage > 60 ? 'progress-error' : 'progress-warning'; 
@@ -103,7 +99,6 @@ const EvaluationTabs = ({ result = {} }) => {
     }).format(number);
   };
 
-  // Destructure result with default values
   const {
     economic_indicator = 0,
     financial_projection = {},
@@ -134,7 +129,6 @@ const EvaluationTabs = ({ result = {} }) => {
     competitorCount: validCompetitors.length,
   };
 
-  // Ensure risks is an array of objects with necessary properties
   
   const validRisks = generatedRisks.length > 0 ? generatedRisks : sampleRisks;
 
@@ -215,7 +209,6 @@ const EvaluationTabs = ({ result = {} }) => {
     return insights;
   };
 
-  // Generate competitive analysis data with safe access
   const competitiveData = {
     ratings: validCompetitors.map(c => ({
       name: (c.name && c.name.length > 20) ? c.name.substring(0, 20) + '...' : (c.name || 'Unnamed'),
@@ -231,7 +224,7 @@ const EvaluationTabs = ({ result = {} }) => {
 
   const generateProjections = (timeframe) => {
     const months = timeframe === 'yearly' ? 12 : 24;
-    const growthRate = timeframe === 'yearly' ? 0.01 : 0.005; // Lower growth for longer timeframe
+    const growthRate = timeframe === 'yearly' ? 0.01 : 0.005; 
     const monthlyRevenue = revenue ? revenue / 12 : 0;
     return Array.from({ length: months }, (_, i) => ({
       name: `Month ${i + 1}`,
@@ -242,7 +235,6 @@ const EvaluationTabs = ({ result = {} }) => {
   };
   
 
-  // Market Position Radar Data with safe access
   const radarData = [
     { subject: 'Market Position', A: economic_indicator * 100, B: 60 },
     { subject: 'Revenue Potential', A: 85, B: 70 },
@@ -489,7 +481,6 @@ const EvaluationTabs = ({ result = {} }) => {
                               <span className="font-medium">{((competitor.rating / 5) * 100).toFixed(0)}%</span>
                             </div>
                           </div>
-                          {/* Add more details if available */}
                         </div>
                       </div>
                     )}
@@ -523,10 +514,8 @@ const EvaluationTabs = ({ result = {} }) => {
               <div className="card shadow-lg bg-base-100 p-6 rounded-lg">
                 <h3 className="card-title text-xl font-semibold mb-4">Risks & Strategies</h3>
         
-                {/* Risk Assessment Radar Chart */}
                 <RiskAssessment risks={validRisks} />
         
-                {/* Risk Score Bar Chart */}
                 <div className="mb-6">
                   <h4 className="font-medium text-lg mb-2">Risk Scores Overview</h4>
                   <div className="h-64">
@@ -542,7 +531,6 @@ const EvaluationTabs = ({ result = {} }) => {
                   </div>
                 </div>
         
-                {/* Individual Risks with Progress Bars */}
                 <div>
                   <h4 className="font-medium text-lg mb-2">Detailed Risk Analysis</h4>
                   {validRisks.length > 0 ? (

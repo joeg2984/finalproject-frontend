@@ -1,8 +1,7 @@
-// src/components/Navbar.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.png'; // Ensure the path is correct
+import logo from '../assets/logo.png';
 import { Sun, Moon } from 'lucide-react';
 
 const ThemeToggle = () => {
@@ -35,7 +34,6 @@ const Navbar = ({ onLogin }) => {
   return (
     <>
       <div className="navbar bg-base-100 shadow-lg">
-        {/* Left Side: Logo and Brand Name */}
         <div className="flex-1 flex items-center">
           <Link to="/" className="flex items-center">
             <img src={logo} alt="Hatchery AI Logo" className="w-10 h-10 mr-3" />
@@ -43,7 +41,6 @@ const Navbar = ({ onLogin }) => {
           </Link>
         </div>
 
-        {/* Right Side: Theme Toggle and Login Button */}
         <div className="flex-none flex items-center">
           <ThemeToggle />
           <button className="btn btn-primary ml-2" onClick={handleLoginClick}>

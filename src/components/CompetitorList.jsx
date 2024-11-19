@@ -1,4 +1,3 @@
-// frontend/src/components/CompetitorList.js
 import React from 'react';
 import { FaStore } from 'react-icons/fa';
 

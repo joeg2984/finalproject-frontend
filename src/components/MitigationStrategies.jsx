@@ -1,9 +1,8 @@
-// frontend/src/components/MitigationStrategies.js
 import React from 'react';
 
 const MitigationStrategies = ({ strategies }) => {
   if (!strategies || strategies.length === 0) {
-    return null; // No need to render if no strategies
+    return null; 
   }
 
   return (
