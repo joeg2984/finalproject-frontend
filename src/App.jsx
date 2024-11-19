@@ -8,7 +8,6 @@ const App = () => {
   return (
     <div className="App">
       <header className="flex justify-end p-4">
-        <DarkModeToggle /> {/* Optional: Remove if not implementing Dark Mode */}
       </header>
       <Evaluation />
     </div>

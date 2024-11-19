@@ -22,41 +22,80 @@ const Evaluation = () => {
   useEffect(() => {
     console.log("API URL:", API_URL);
 
-  const fetchData = async () => {
+    const fetchData = async () => {
+      console.log("Fetching initial data...");
       try {
         const [locationsRes, ideasRes] = await Promise.all([
           axios.get(`${API_URL}/locations`),
           axios.get(`${API_URL}/business-ideas`),
         ]);
+        console.log("Locations response:", locationsRes.data);
+        console.log("Business Ideas response:", ideasRes.data);
         setKnownLocations(Array.isArray(locationsRes.data) ? locationsRes.data : []);
         setKnownBusinessIdeas(Array.isArray(ideasRes.data) ? ideasRes.data : []);
       } catch (err) {
-        console.error("Error fetching initial data:", err);
-        setError("Failed to fetch initial data. Please try again later.");
+        console.error("Error Details:", {
+          message: err.message,
+          status: err.response?.status,
+          statusText: err.response?.statusText,
+          data: err.response?.data,
+          config: err.config,
+        });
+        let errorMessage;
+    if (err.code === 'ECONNABORTED') {
+      errorMessage = 'Request timed out. Please try again.';
+    } else if (!err.response) {
+      errorMessage = 'Network error. Please check your connection.';
+    } else {
+      switch (err.response.status) {
+        case 400:
+          errorMessage = 'Invalid request. Please check your inputs.';
+          break;
+        case 404:
+          errorMessage = 'Service not found. Please try again later.';
+          break;
+        case 500:
+          errorMessage = 'Server error. Please try again later.';
+          break;
+        default:
+          errorMessage = err.response?.data?.detail || 'Something went wrong. Please try again.';
       }
-    };
+    }
+    }
+  };
 
     fetchData();
   }, [API_URL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted");
+    console.log("Business Idea:", businessIdea);
+    console.log("Location:", location);
     setLoading(true);
     setError(null);
     setResult(null);
 
     try {
-      const response = await axios.post(`${API_URL}/evaluate`, {
+      console.log("Sending POST request to evaluate");
+      console.log("Request payload:", {
         business_idea: businessIdea,
         location: location,
       });
+            const response = await axios.post(`${API_URL}/evaluate`, {
+        business_idea: businessIdea,
+        location: location,
+      });
+      console.log("Evaluation response:", response.data);
       setResult(response.data);
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 2000);
     } catch (err) {
+      console.error("Error during evaluation:", err);
       setError(err.response?.data?.detail || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
+      console.log("Loading state:", loading);
     }
   };
 
@@ -97,7 +136,10 @@ const Evaluation = () => {
             }}
             items={knownBusinessIdeas}
             value={businessIdea}
-            onSelect={(val) => setBusinessIdea(val)}
+            onSelect={(val) => {
+              console.log("Selected Business Idea:", val);
+              setBusinessIdea(val);
+            }}
           />
         </div>
       
@@ -127,7 +169,10 @@ const Evaluation = () => {
             }}
             items={knownLocations}
             value={location}
-            onSelect={(val) => setLocation(val)}
+            onSelect={(val) => {
+              console.log("Selected Location:", val);
+              setLocation(val);
+            }}
           />
         </div>
       
@@ -168,9 +213,7 @@ const Evaluation = () => {
         <SuccessAnimation show={showSuccess} />
 
       </div>
-    );
+  );
 };
 
 export default Evaluation;
-
-

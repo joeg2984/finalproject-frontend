@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle } from 'lucide-react';
 
-const SuccessAnimation = ({ show }) => {
+const SuccessAnimation = ({ show, logoSrc }) => {
   const [particles, setParticles] = useState([]);
 
   useEffect(() => {
@@ -9,7 +8,7 @@ const SuccessAnimation = ({ show }) => {
       const newParticles = Array.from({ length: 20 }).map((_, i) => ({
         id: i,
         angle: (i * 360) / 20,
-        delay: i * 50
+        delay: i * 50,
       }));
       setParticles(newParticles);
     }
@@ -20,14 +19,14 @@ const SuccessAnimation = ({ show }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-sm">
       <div className="relative">
-        <CheckCircle 
-          className="w-20 h-20 text-green-500 animate-bounce" 
-          strokeWidth={3}
+        <img
+          src='src/assets/logo-round.png'
+          alt="Success Logo"
+          className="w-40 h-40 animate-bounce"
         />
         {particles.map((particle) => (
           <div
             key={particle.id}
-            className="absolute w-2 h-2 bg-green-500 rounded-full animate-particle"
             style={{
               left: '50%',
               top: '50%',
